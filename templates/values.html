@@ -8,11 +8,9 @@
 <div class="container">
     <form method="POST">
     {{ select.csrf_token }}
-    {{ select.tag.label }} <br>{{ select.tag }}<br>
-        {{ select.date_from.label }} <br>{{ select.date_from }} <br>
-        {{ select.date_to.label }} <br>{{ select.date_to }} <br>
-    <br>
-    <input type="submit" value="Показать">
+    {{ select.tag.label }} <br>{{ select.tag(**{"onchange":"this.form.submit()"}) }}<br>
+        {{ select.date_from.label }} <br>{{ select.date_from(**{"onchange":"this.form.submit()"}) }} <br>
+        {{ select.date_to.label }} <br>{{ select.date_to(**{"onchange":"this.form.submit()"}) }} <br>
 </form>
 </div>
 {% if selected %}
