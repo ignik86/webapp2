@@ -48,15 +48,19 @@ var chart = am4core.create("chartdiv", am4charts.XYChart);
 
 var data = [];
 var jsvalue = [];
+var jsdate = [];
+
 {%for value in values%}
 jsvalue.push({{ value.value }})
+d = new Date('{{value.date}}')
+jsdate.push(d)
 {% endfor %}
 
 for(let i = 0; i < jsvalue.length; i++){
   let date = new Date();
   date.setHours(0,0,0,0);
   date.setDate(i);
-  data.push({date:date, value: jsvalue[i]});
+  data.push({date:jsdate[i], value: jsvalue[i]});
 }
 
 chart.data = data;
@@ -81,6 +85,7 @@ chart.cursor.xAxis = dateAxis;
 
 //chart.scrollbarY = new am4core.Scrollbar();
 chart.scrollbarX = new am4core.Scrollbar();
+
 </script>
 {% endif %}
 {% endblock %}
