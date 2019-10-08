@@ -53,7 +53,8 @@ class Tags(object):
 
 class SelectTag(FlaskForm):
     tag = SelectField(u'TagName', coerce=int)
-
+    date_from = DateField('Start:', validators=[DataRequired()])
+    date_to = DateField('End:', validators=[DataRequired()])
 
 def create_app():
 
@@ -85,7 +86,10 @@ def values():
     select_form = SelectTag()
     select_form.tag.choices = [(g.id, g.name) for g in tags]
     if select_form.validate_on_submit():
-        q = session.query(Values).filter(Values.tag_id == select_form.tag.data)
+        q = session.query(Values)\
+            .filter(Values.tag_id == select_form.tag.data)\
+            .filter(Values.date >= select_form.date_from.data)\
+            .filter(Values.date <= select_form.date_to.data)
         values = q.all()
         selected = True
 
