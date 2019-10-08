@@ -52,7 +52,7 @@ var jsvalue = [];
 jsvalue.push({{ value.value }})
 {% endfor %}
 
-for(let i = 0; i < 20; i++){
+for(let i = 0; i < jsvalue.length; i++){
   let date = new Date();
   date.setHours(0,0,0,0);
   date.setDate(i);
