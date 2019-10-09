@@ -5,7 +5,7 @@ import os
 
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField
+from wtforms import StringField, DateField, SelectField, DecimalField
 from wtforms.validators import DataRequired
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
@@ -27,7 +27,7 @@ def mynavbar():
         Subgroup(
             'Tags',
             View('Values', 'values'),
-
+            View('Config', 'config')
         ),
     )
 
@@ -56,6 +56,17 @@ class SelectTag(FlaskForm):
     date_from = DateField('Start:', validators=[DataRequired()])
     date_to = DateField('End:', validators=[DataRequired()])
 
+class ConfigForm(FlaskForm):
+    tagname = StringField('TagName', validators=[DataRequired()])
+    tag_type = SelectField(u'Type', choices=[('boolarray', 'boolarray'),
+                                             ('float', 'float'), 
+                                             ('short', 'short'),
+                                             ('byte', 'byte'),
+                                             ('integer', 'integer')])
+    dbnumber = DecimalField(u'DB Number')
+    startadress = DecimalField(u'Start adress',places=3)
+    size = DecimalField(u'Size',places=3) 
+
 def create_app():
 
   application = Flask(__name__)
@@ -68,7 +79,7 @@ def create_app():
 
 
 app = create_app()
-engine = create_engine('mysql+mysqlconnector://root:MT0334!@172.24.15.181:3306/plc_tag', echo=False)
+engine = create_engine('mysql+mysqlconnector://root:MT0334!@172.24.15.181:3306/plc_tag_test', echo=False)
 meta = MetaData(bind=engine, reflect=True)
 orm.Mapper(Values, meta.tables['values'])
 orm.Mapper(Tags, meta.tables['tags'])
@@ -99,6 +110,11 @@ def values():
 @app.route('/', methods=['GET'])
 def main():
     return render_template('index.html')
+
+@app.route('/config',  methods=('GET', 'POST'))
+def config():
+    tag_config = ConfigForm()
+    return render_template('config.html',tag_config=tag_config)
 
 
 

@@ -1,0 +1,20 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container" align="center">
+<form method="POST">
+    {{ tag_config.csrf_token }}
+    {{ tag_config.tagname.label }} <br>{{ tag_config.tagname }}<br>
+    {{ tag_config.dbnumber.label }} <br>{{ tag_config.dbnumber }}<br>
+    {{ tag_config.tag_type.label }} <br>{{ tag_config.tag_type }}<br>
+    {{ tag_config.startadress.label }} <br>{{ tag_config.startadress }}<br>
+    {{ tag_config.size.label }} <br>{{ tag_config.size }}<br>
+    <br>
+    <input type="submit" value="Добавить">
+</div>
+
+
+
+{% endblock %}
