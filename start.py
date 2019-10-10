@@ -116,7 +116,8 @@ def config():
     tag_config = ConfigForm()
     return render_template('config.html',tag_config=tag_config)
 
-
+if __name__ == "__main__":
+    app.run(host='127.0.0.1')
 
 
 
