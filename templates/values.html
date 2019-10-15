@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="{{ url_for('static', filename='amcharts4/core.js') }} "></script>
+<script src="{{ url_for('static', filename='amcharts4/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='amcharts4/themes/animated.js') }}"></script>
 
 <div class="container">
     <form method="POST">
@@ -19,7 +19,7 @@
      <table border="1" align="center" cellpadding="7" width="70%">
          <caption>Tags</caption>
          <tr align="center"><th align="center">tag_id</th><th align="center">date</th><th align="center">value</th></tr>
-            {%for value in values%}
+            {% for value in values %}
             <tr align="center">
                 <td>{{ value.tag_id}}</td> <td >{{value.date}}</td><td >{{value.value}}</td>
             </tr>

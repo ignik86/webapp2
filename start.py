@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData
 from sqlalchemy import orm
+from sqlalchemy import exc
 import os
 
 
@@ -115,9 +116,7 @@ def main():
 def config():
     tag_config = ConfigForm()
     return render_template('config.html',tag_config=tag_config)
-
-if __name__ == "__main__":
-    app.run(host='127.0.0.1')
-
-
-
+    
+if __name__ == "__main__":  
+    app.run(host='127.0.0.1',debug= True)
+      
