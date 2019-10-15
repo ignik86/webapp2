@@ -1,11 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData
 from sqlalchemy import orm
+from sqlalchemy import exc
 import os
 
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, DecimalField
+from wtforms import StringField, SelectField, DecimalField
+from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
@@ -115,8 +117,7 @@ def main():
 def config():
     tag_config = ConfigForm()
     return render_template('config.html',tag_config=tag_config)
-
-
-
-
-
+    
+if __name__ == "__main__":  
+    app.run(host='127.0.0.1',debug= True)
+      
