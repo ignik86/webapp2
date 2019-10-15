@@ -6,7 +6,8 @@ import os
 
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, DecimalField
+from wtforms import StringField, SelectField, DecimalField
+from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
