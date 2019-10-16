@@ -81,17 +81,18 @@ def create_app():
 
 
 app = create_app()
-engine = create_engine('mysql+mysqlconnector://root:MT0334!@172.24.15.181:3306/plc_tag_test', echo=False)
+engine = create_engine('mysql+mysqlconnector://root:MT0334!@172.24.15.181:3306/plc_tag', echo=False)
 meta = MetaData(bind=engine, reflect=True)
 orm.Mapper(Values, meta.tables['values'])
 orm.Mapper(Tags, meta.tables['tags'])
 
-session = orm.Session(bind=engine)
+
 
 
 @app.route('/values',  methods=('GET', 'POST'))
 def values():
 
+    session = orm.Session(bind=engine)
     q = session.query(Tags)
     tags = q.all()
     values = Values(0,0,0)
@@ -105,6 +106,7 @@ def values():
             .filter(Values.date <= select_form.date_to.data)
         values = q.all()
         selected = True
+    session.close()
 
     return render_template('values.html', values=values, tags=tags, select=select_form, selected=selected)
 
