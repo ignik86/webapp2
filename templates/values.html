@@ -5,7 +5,7 @@
 <script src="{{ url_for('static', filename='amcharts4/charts.js') }}"></script>
 <script src="{{ url_for('static', filename='amcharts4/themes/animated.js') }}"></script>
 
-<div class="container">
+<div class="container" >
     <form method="POST">
     {{ select.csrf_token }}
     {{ select.tag.label }} <br>{{ select.tag(**{"onchange":"this.form.submit()"}) }}<br>
@@ -56,9 +56,14 @@ for(let i = 0; i < jsvalue.length; i++){
 
 chart.data = data;
 
+chart.dateFormatter.dateFormat = "dd MMM HH:mm";
+chart.dateFormatter.inputDateFormat = "yyyy-MM-dd HH:mm";
 // Create axes
 var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-dateAxis.renderer.minGridDistance = 60;
+
+dateAxis.renderer.grid.template.location = 0;
+dateAxis.dateFormats.setKey("day", " dd MMMM ");   
+dateAxis.periodChangeDateFormats.setKey("hour", "[bold]dd MMM");
 
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
